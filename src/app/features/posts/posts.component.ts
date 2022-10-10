@@ -1,34 +1,28 @@
 import { PostDto } from 'src/app/models/posts.model';
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { deletePost, getPosts } from './state/posts.actions';
 import { State } from './state/posts.reducer';
-import { Router } from '@angular/router';
-import { getPostsSelector } from './state/posts.selectors';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostsService } from './service/posts.service';
+import { CoreListComponent } from 'src/app/core/core-list.component';
+import { getPostsSelector } from './state/posts.selectors';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class PostsComponent extends CoreListComponent<PostDto> {
   posts: PostDto[] = [];
-  headers: string[] = [];
 
   constructor(
     private store: Store<State>,
-    private service: PostsService,
-    private router: Router
+    public override service: PostsService,
+    public override router: Router,
+    public override route: ActivatedRoute
   ) {
+    super(service, route, router);
     this.store
       .pipe(select(getPostsSelector))
       .subscribe((data: any) => {
@@ -37,45 +31,31 @@ export class PostsComponent
         }
       });
 
-    this.getAllPosts().subscribe((posts: PostDto[]) => {
-      this.headers = Object.getOwnPropertyNames(posts[0]);
+    this.getAll().subscribe((posts: PostDto[]) => {
       this.store.dispatch(getPosts({ posts }));
     });
   }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
     console.log('PostsComponent onInit');
   }
 
-  ngAfterViewInit(): void {
+  override ngAfterViewInit(): void {
+    super.ngAfterViewInit();
     console.log('PostsComponent onAfterViewInit');
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
     console.log('PostsComponent onDestroy');
   }
 
   handleDelete(id: number): void {
-    this.service.deletePost(id).subscribe((result) => {
+    this.service.delete(id).subscribe((result) => {
       if (result) {
         this.store.dispatch(deletePost({ postId: id }));
       }
     });
-  }
-
-  handleEdit(id: number): void {
-    this.router.navigate(['/posts', id], {
-      queryParams: { backUrl: this.router.url }
-    });
-  }
-
-  handleNew(): void {
-    this.router.navigate(['/posts', 0], {
-      queryParams: { backUrl: this.router.url }
-    });
-  }
-
-  getAllPosts(): Observable<PostDto[]> {
-    return this.service.getAllPosts();
   }
 }

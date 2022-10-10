@@ -1,0 +1,68 @@
+<h1>Comment Form</h1>
+
+<form
+  *ngIf="comment"
+  #frm="ngForm"
+  (change)="handleFormStatus(frm)"
+  (ngSubmit)="handleSubmit(frm)">
+  <table style="border-collapse: collapse">
+    <caption>
+      <button type="button" (click)="handleBack()">Back</button
+      >&nbsp;
+      <button type="submit">Save</button
+      >&nbsp;
+      <button type="button" (click)="handleReset()">Reset</button>
+    </caption>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>PostId</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Body</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td vAlign="top">
+          <input
+            type="hidden"
+            name="id"
+            id="id"
+            [(ngModel)]="comment.id" />
+          <label>{{ comment.id }}</label>
+        </td>
+        <td vAlign="top">
+          <input
+            type="text"
+            name="postId"
+            id="postId"
+            [(ngModel)]="comment.postId" />
+        </td>
+        <td vAlign="top">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            [(ngModel)]="comment.name" />
+        </td>
+        <td vAlign="top">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            [(ngModel)]="comment.email" />
+        </td>
+        <td vAlign="top">
+          <textarea
+            name="body"
+            id="body"
+            cols="30"
+            rows="10"
+            [(ngModel)]="comment.body"></textarea>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+

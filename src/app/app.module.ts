@@ -1,3 +1,4 @@
+import { commentsReducer } from './features/comments/state/comments.reducer';
 import { environment } from './../environments/environment.prod';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,7 +16,8 @@ import { postsReducer } from './features/posts/state/posts.reducer';
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({
-      posts: postsReducer
+      posts: postsReducer,
+      comments: commentsReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 20,

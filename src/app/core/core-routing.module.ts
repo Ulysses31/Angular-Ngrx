@@ -14,6 +14,13 @@ const routes: Routes = [
             (m) => m.PostsModule
           )
       },
+      {
+        path: 'comments',
+        loadChildren: () =>
+          import('../features/comments/comments.module').then(
+            (m) => m.CommentsModule
+          )
+      },
       { path: '**', redirectTo: '' }
     ]
   }

@@ -1,4 +1,4 @@
-<h1>Posts</h1>
+<h1>Comments</h1>
 <table border="0" [cellPadding]="5" [cellSpacing]="2">
   <caption>
     <button (click)="handleNew()">New</button>
@@ -10,10 +10,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let post of posts">
-      <td vAlign="top">{{ post.userId }}</td>
+    <tr *ngFor="let post of comments">
+      <td vAlign="top">{{ post.postId }}</td>
       <td vAlign="top">{{ post.id }}</td>
-      <td vAlign="top">{{ post.title }}</td>
+      <td vAlign="top">{{ post.name }}</td>
+      <td vAlign="top">{{ post.email }}</td>
       <td vAlign="top">{{ post.body }}</td>
       <td nowrap>
         <button (click)="handleEdit(post.id)">Edit</button>

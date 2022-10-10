@@ -12,10 +12,10 @@ export class CoreComponent implements OnInit, OnDestroy {
   // constructor() {}
 
   ngOnInit(): void {
-    console.log('CoreComponent onInit');
+    // console.log('CoreComponent onInit');
   }
 
   ngOnDestroy(): void {
-    console.log('CoreComponent onDestroy');
+    // console.log('CoreComponent onDestroy');
   }
 }
